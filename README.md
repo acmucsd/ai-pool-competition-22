@@ -10,7 +10,7 @@ Action Items:
 <br>
 
 ## Table of Contents:
-- [Credit](https://github.com/acmucsd/ai-pool-competition-22/tree/ML-setup/ML#requirements)
+- [Credit](https://github.com/acmucsd/ai-pool-competition-22/blob/main/README.md#credit)
 
 ## Credit
 
