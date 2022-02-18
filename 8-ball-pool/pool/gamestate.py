@@ -188,13 +188,15 @@ class GameState:
         graphics.add_separation_line(self.canvas)
 
     def game_over(self, p1_won):
-        font = config.get_default_font(config.game_over_label_font_size)
-        if p1_won:
-            text = "PLAYER 1 WON!"
-        else:
-            text = "PLAYER 2 WON!"
-        rendered_text = font.render(text, False, (255, 255, 255))
-        self.canvas.surface.blit(rendered_text, (config.resolution - font.size(text)) / 2)
+        ###########################################################
+        # font = config.get_default_font(config.game_over_label_font_size)
+        # if p1_won:
+        #     text = "PLAYER 1 WON!"
+        # else:
+        #     text = "PLAYER 2 WON!"
+        # rendered_text = font.render(text, False, (255, 255, 255))
+        # self.canvas.surface.blit(rendered_text, (config.resolution - font.size(text)) / 2)
+        #################################################################
         pygame.display.flip()
         pygame.event.clear()
         paused = True
@@ -245,6 +247,10 @@ class GameState:
         # decides if on of the players (or both) should be potting 8ball
         self.potting_8ball = {Player.Player1: not ball_type_remaining[self.ball_assignment[Player.Player1]],
                               Player.Player2: not ball_type_remaining[self.ball_assignment[Player.Player2]]}
+        ###################################################
+        # ours
+        if not stripes_remaining and not solids_remaining:
+            self.game_over(self.current_player == Player.Player1)
 
     def first_collision(self, ball_combination):
         self.white_ball_1st_hit_is_set = True

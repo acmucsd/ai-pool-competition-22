@@ -12,8 +12,9 @@ events = event.events()
 while not (events["closed"] or game.is_game_over or events["quit_to_main_menu"]):
     events = event.events()
     collisions.resolve_all_collisions(game.balls, game.holes, game.table_sides)
-    game.redraw_all()
-
+    game.redraw_all(update=False) 
+    print(game.all_not_moving())
+    
     if game.all_not_moving():
         game.check_pool_rules()
         game.cue.make_visible(game.current_player)
