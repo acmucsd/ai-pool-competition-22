@@ -19,7 +19,9 @@ from collisions import check_if_ball_touches_balls
 
 class Player(Enum):
     Player1 = 1
-    Player2 = 2
+    ##############################################################################
+    # Player2 = 2
+    ##############################################################################
 
 
 class GameState:
@@ -102,7 +104,11 @@ class GameState:
         self.ball_assignment = None
         self.can_move_white_ball = True
         self.is_game_over = False
-        self.potting_8ball = {Player.Player1: False, Player.Player2: False}
+        self.potting_8ball = {Player.Player1: False, 
+        ##############################################################################
+                            #   Player.Player2: False
+        ##############################################################################
+                              }
         self.table_sides = []
 
     def is_behind_line_break(self):
@@ -202,10 +208,12 @@ class GameState:
         if not self.turn_ended:
             self.turn_ended = True
             self.turn_number += 1
-            if self.current_player == Player.Player1:
-                self.current_player = Player.Player2
-            else:
-                self.current_player = Player.Player1
+            ##############################################################################
+            # if self.current_player == Player.Player1:
+            #     self.current_player = Player.Player2
+            # else:
+            self.current_player = Player.Player1
+            ##############################################################################
         if penalize:
             self.can_move_white_ball = True
 
@@ -216,11 +224,13 @@ class GameState:
             self.cue.target_ball = self.white_ball
             self.potted.remove(0)
             self.turn_over(True)
-        if 8 in self.potted:
-            if self.potting_8ball[self.current_player]:
-                self.game_over(self.current_player == Player.Player1)
-            else:
-                self.game_over(self.current_player != Player.Player1)
+        ##############################################################################
+        # if 8 in self.potted:
+        #     if self.potting_8ball[self.current_player]:
+        #         self.game_over(self.current_player == Player.Player1)
+        #     else:
+        #         self.game_over(self.current_player != Player.Player1)
+        ##############################################################################
 
     def check_remaining(self):
         # a check if all striped or solid balls were potted
@@ -270,14 +280,16 @@ class GameState:
 
             if only_solids_potted or only_stripes_potted:
                 selected_ball_type = BallType.Striped if only_stripes_potted else BallType.Solid
-                if self.ball_assignment is None:
-                    # unpacking a singular set - SO MACH HACK
-                    other_player, = set(Player) - {self.current_player}
-                    other_ball_type, = set(BallType) - {selected_ball_type}
-                    self.ball_assignment = {self.current_player: selected_ball_type, other_player: other_ball_type}
-                    self.potting_8ball = {self.current_player: False, other_player: False}
-                elif self.ball_assignment[self.current_player] != selected_ball_type:
-                    self.turn_over(False)
+                ##############################################################################
+                # if self.ball_assignment is None:
+                #     # unpacking a singular set - SO MACH HACK
+                #     other_player, = set(Player) - {self.current_player}
+                #     other_ball_type, = set(BallType) - {selected_ball_type}
+                #     self.ball_assignment = {self.current_player: selected_ball_type, other_player: other_ball_type}
+                #     self.potting_8ball = {self.current_player: False, other_player: False}
+                # elif self.ball_assignment[self.current_player] != selected_ball_type:
+                #     self.turn_over(False)
+                ##############################################################################
         else:
             self.turn_over(False)
 
