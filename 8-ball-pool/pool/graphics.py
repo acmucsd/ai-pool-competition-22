@@ -56,6 +56,7 @@ def draw_main_menu(game_state):
             config.get_default_font(config.menu_option_font_size)] * 3,
         [config.menu_text_color] * 4,
         [config.menu_text_color] + [config.menu_text_selected_color] * 3)
+
     draw_rects(button_size, buttons, game_state, text_starting_place, emit=[0])
     button_clicked = iterate_until_button_press(buttons, game_state, text_ending_place,
                                                 text_starting_place)
