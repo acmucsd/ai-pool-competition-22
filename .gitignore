@@ -1,1 +1,7 @@
 *.pyc
+
+# things that will be edited by running bash run.sh
+8-ball-pool/pool/bin/
+8-ball-pool/pool/include/
+8-ball-pool/pool/lib/
+8-ball-pool/pool/pyenv.cfg
