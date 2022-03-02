@@ -55,11 +55,11 @@ class StripedBall():
             self.stripe_circle[i] = np.matmul(
                 stripe, transformation_matrix)
 
-    def draw_stripe(self, sprite):
-        for num, point in enumerate(self.stripe_circle[:-1]):
-            if point[2] >= -1:
-                pygame.draw.line(sprite, (255, 255, 255), config.ball_radius + point[:2],
-                                 config.ball_radius + self.stripe_circle[num + 1][:2], config.ball_stripe_thickness)
+ #   def draw_stripe(self, sprite):
+ #      for num, point in enumerate(self.stripe_circle[:-1]):
+ #          if point[2] >= -1:
+ #              pygame.draw.line(sprite, (255, 255, 255), config.ball_radius + point[:2],
+ #                                config.ball_radius + self.stripe_circle[num + 1][:2], config.ball_stripe_thickness)
 
 
 class SolidBall():
@@ -138,8 +138,8 @@ class BallSprite(pygame.sprite.Sprite):
 
         new_sprite.blit(
             label, self.label_offset[:2] + (sprite_dimension - label.get_size()) / 2)
-        if self.ball_type == BallType.Striped:
-            self.ball_stripe.draw_stripe(new_sprite)
+ #       if self.ball_type == BallType.Striped:
+ #          self.ball_stripe.draw_stripe(new_sprite)
 
         # applies a circular mask on the sprite using colorkey
         grid_2d = np.mgrid[-config.ball_radius:config.ball_radius +
