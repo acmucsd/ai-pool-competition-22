@@ -1,4 +1,5 @@
 import math
+from random import random
 
 import numpy as np
 import pygame
@@ -106,9 +107,10 @@ class Cue(pygame.sprite.Sprite):
 
         while events["clicked"]:
             events = event.events()
-            # changes the cue angle and displacement.
-            # not sure what displacement is.
+            # Changes the cue angle and displacement.
+            # Not sure what displacement is.
             # Maybe displacement is the force? Yes!
+            # 
             # displacement: [14, 100] -> continuous
             # angle: [-pi, pi] -> continuous
             # 
@@ -130,8 +132,46 @@ class Cue(pygame.sprite.Sprite):
             # it approaches pi. When the cue stick approaches South from the
             # right, it approaches -pi.
             
+            # Here is the random action sampling. 
+            # Precondition: There is nuance behind this. It will only activate
+            # when you click on the cue. So with this current implementation (
+            # located here in this while loop), every time you click on the cue,
+            # it will randomly input a displacement and angle (surprise!).
+
+            # random_angle = np.random.uniform(-np.pi, np.pi)
+            # random_displacement = np.random.uniform(14, 100)
+
+            # update_cue, besides from drawing things on the screen (the dashed
+            # lines you see following the cue stick point), updates 2 variables:
+            # 
+            # - self.displacement
+            # - self.angle 
+            #
+            # I explain these above.
             self.update_cue(game_state, initial_mouse_dist, events)
             # print(self.displacement, self.angle)
+
+            # AT THIS POINT, THE CUE WILL HAVE AN ANGLE AND DISPLACEMENT
+            # ACCURATE TO WHAT THE USER HAS MANUALLY MOVED IT TO.
+            # WE WILL NOW SUBSTITUTE THESE VALUES IN.
+
+            # self.angle = random_angle
+            # self.displacement = random_displacement
+
+            #################################################################
+
+        # Inserting this snippet within the while loop works but causes
+        # the dashed lines to flicker randomly! Here it produces the same output
+        # but no flicker.
+        # Note: do keep in mind that the user is still allowed to move the cue stick.
+        # Its just that they have no control in how it will actually act. 
+        # np.random.uniform is in control of that.
+        random_angle = np.random.uniform(-np.pi, np.pi)
+        random_displacement = np.random.uniform(14, 100)
+        self.angle = random_angle
+        self.displacement = random_displacement
+
+        #################################################################
 
         # undraw leftover aiming lines
         self.draw_lines(game_state, self.target_ball, self.angle +
