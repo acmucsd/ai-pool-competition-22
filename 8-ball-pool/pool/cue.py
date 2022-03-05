@@ -106,11 +106,36 @@ class Cue(pygame.sprite.Sprite):
 
         while events["clicked"]:
             events = event.events()
+            # changes the cue angle and displacement.
+            # not sure what displacement is.
+            # Maybe displacement is the force? Yes!
+            # displacement: [14, 100] -> continuous
+            # angle: [-pi, pi] -> continuous
+            # 
+            # Displacement: 14 when we don't draw the cue stick back and
+            # 100 when we draw it back to the max length.
+            # Angle: A  visual is provided below.
+            #           
+            #           0
+            #           ^
+            #           |
+            #  pi/2 <---|---> -pi/2
+            #           |
+            #        pi v -pi
+            # 
+            # When cue stick is pointed North, the angle is 0.
+            # When it points East, the angle is -pi/2.
+            # When it points West, it is pi/2.
+            # When the cue stick point approaches the South from the left,
+            # it approaches pi. When the cue stick approaches South from the
+            # right, it approaches -pi.
+            
             self.update_cue(game_state, initial_mouse_dist, events)
+            # print(self.displacement, self.angle)
+
         # undraw leftover aiming lines
         self.draw_lines(game_state, self.target_ball, self.angle +
                         math.pi, config.table_color)
-
         if self.displacement > config.ball_radius+config.cue_safe_displacement:
             self.ball_hit()
 
